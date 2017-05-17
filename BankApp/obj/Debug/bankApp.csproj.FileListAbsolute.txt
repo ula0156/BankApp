@@ -1,0 +1,7 @@
+C:\Users\Yulia\gitHub\C#\bankApp\bankApp\bin\Debug\bankApp.exe.config
+C:\Users\Yulia\Desktop\GitHub\C#\BankApp\bankApp\bin\Debug\bankApp.exe.config
+C:\Users\Yulia\Desktop\GitHub\C#\BankApp\bankApp\bin\Debug\bankApp.exe
+C:\Users\Yulia\Desktop\GitHub\C#\BankApp\bankApp\bin\Debug\bankApp.pdb
+C:\Users\Yulia\Desktop\GitHub\C#\BankApp\bankApp\obj\Debug\bankApp.csprojResolveAssemblyReference.cache
+C:\Users\Yulia\Desktop\GitHub\C#\BankApp\bankApp\obj\Debug\bankApp.exe
+C:\Users\Yulia\Desktop\GitHub\C#\BankApp\bankApp\obj\Debug\bankApp.pdb
