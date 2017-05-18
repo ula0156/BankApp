@@ -7,17 +7,24 @@ using System.Threading.Tasks;
 namespace bankApp
 {
     class Account
-    { 
+    {
+        private static int lastAccountNumber = 0;
+
+        #region Properties
+        public string AccountName { get; set; }
+        public decimal AccountNumber { get; private set; }
+        public string EmailAddress { get; set; }
+        public decimal Balance { get; private set; }
+        public string TypeOfAccount { get; set; }
+        #endregion
+
+        #region Constructor
         public Account()
         {
-
+            lastAccountNumber += 1;
+            AccountNumber = lastAccountNumber;
         }
-    #region Properties
-        public string Name { get; set; }
-        public decimal Number { get; private set; }
-        public string Email { get; set; }
-        public decimal Balance { get; private set; }
-        public string Type { get; set; }
+
         #endregion
 
         #region Methodes
@@ -25,6 +32,7 @@ namespace bankApp
         {
             Balance += amount;
         }
+
         public void Withdraw(decimal amount)
         {
             Balance -= amount;
