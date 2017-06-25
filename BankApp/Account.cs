@@ -63,6 +63,10 @@ namespace bankApp
 
         public void Withdraw(decimal amount)
         {
+            if (amount > Balance)
+            {
+                throw new ArgumentOutOfRangeException("Amount is greater than the balance of the account.");
+            }
             Balance -= amount;
         }
         #endregion

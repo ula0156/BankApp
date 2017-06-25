@@ -33,5 +33,20 @@ namespace bankApp
         {
             return accounts;
         } 
+
+        public static Account GetAccountByAccountNumber(int accountNumber)
+        {
+            //LINQ, inside is the landa expression
+            return accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault();
+        }
+        public static void Deposit(Account account, decimal amount)
+        {
+            account.Deposit(amount);
+        }
+        public static void Withdraw(Account account, decimal amount)
+        {
+            account.Withdraw(amount);
+        }
+
     }
 }

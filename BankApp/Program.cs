@@ -38,14 +38,66 @@ namespace bankApp
 
                         // Because bank class is the static class, we don't use word new for constructor function
                         var account = Bank.CreateAccount(accountName, emailAddress, (AccountTypes)accountType, amount);
-                        Console.WriteLine($"AN: {account.AccountName}, Balance: {account.Balance: C}");
+                        Console.WriteLine($"AN: {account.AccountNumber}, Balance: {account.Balance:C}");
                         break;
                     case "2":
+                        PrintAllAccounts();
+                        Console.Write("Select the account number to do a deposit: ");
+                        var accountNum = Convert.ToInt32(Console.ReadLine());
+                        account = Bank.GetAccountByAccountNumber(accountNum);
+                        if (account == null)
+                        {
+                            Console.WriteLine("Invalid account number. Please try again.");
+
+                        }
+                        else
+                        {
+                            Console.Write("Amount to deposit: ");
+                            amount = Convert.ToDecimal(Console.ReadLine());
+                            Bank.Deposit(account, amount);
+                            Console.WriteLine("Deposit completed successfully!");
+                        }
+                        break;
                     case "3":
+                        PrintAllAccounts();
+                        Console.Write("Select the account number to do a withdraw: ");
+                        accountNum = Convert.ToInt32(Console.ReadLine());
+                        account = Bank.GetAccountByAccountNumber(accountNum);
+                        if (account == null)
+                        {
+                            Console.WriteLine("Invalid account number. Please try again.");
+
+                        }
+                        else
+                        {
+                            try
+                            {
+                                Console.Write("Amount to withdraw: ");
+                                amount = Convert.ToDecimal(Console.ReadLine());
+                                Bank.Withdraw(account, amount);
+                                Console.WriteLine("Withdraw completed successfully!");
+                            }
+                            catch (ArgumentOutOfRangeException ax)
+                            {
+                                Console.WriteLine($"Ooops! Withdraw failed. Here is why - {ax.Message}");
+                            }
+                        }
+                        break;
                     case "4":
+                        PrintAllAccounts();
+                        break;
                     default:
                         break;
                 }
+            }
+        }
+
+        private static void PrintAllAccounts()
+        {
+            var accounts = Bank.GetAllAccounts();
+            foreach (var accnt in accounts)
+            {
+                Console.WriteLine($"AN: {accnt.AccountNumber}, Balance: {accnt.Balance:C}");
             }
         }
     }
