@@ -14,6 +14,7 @@ namespace bankApp
                 Console.WriteLine("2: Deposit");
                 Console.WriteLine("3: Withdraw");
                 Console.WriteLine("4: Print all accounts");
+                Console.WriteLine("5: Print transactions");
 
                 var choice = Console.ReadLine();
                 switch (choice)
@@ -42,52 +43,57 @@ namespace bankApp
                         break;
                     case "2":
                         PrintAllAccounts();
-                        Console.Write("Select the account number to do a deposit: ");
-                        var accountNum = Convert.ToInt32(Console.ReadLine());
-                        account = Bank.GetAccountByAccountNumber(accountNum);
-                        if (account == null)
+                        try
                         {
-                            Console.WriteLine("Invalid account number. Please try again.");
+                            Console.Write("Select the account number to do a deposit: ");
+                            var accountNum = Convert.ToInt32(Console.ReadLine());
 
-                        }
-                        else
-                        {
+
                             Console.Write("Amount to deposit: ");
                             amount = Convert.ToDecimal(Console.ReadLine());
-                            Bank.Deposit(account, amount);
+                            Bank.Deposit(accountNum, amount);
                             Console.WriteLine("Deposit completed successfully!");
+                        }
+                        catch (ArgumentOutOfRangeException ax)
+                        {
+                            Console.WriteLine("Deposit failed - {0}, ax.Message");
                         }
                         break;
                     case "3":
                         PrintAllAccounts();
                         Console.Write("Select the account number to do a withdraw: ");
-                        accountNum = Convert.ToInt32(Console.ReadLine());
-                        account = Bank.GetAccountByAccountNumber(accountNum);
-                        if (account == null)
-                        {
-                            Console.WriteLine("Invalid account number. Please try again.");
-
-                        }
-                        else
-                        {
+                        var accountNum2 = Convert.ToInt32(Console.ReadLine());
+                        
                             try
                             {
                                 Console.Write("Amount to withdraw: ");
                                 amount = Convert.ToDecimal(Console.ReadLine());
-                                Bank.Withdraw(account, amount);
+                                Bank.Withdraw(accountNum2, amount);
                                 Console.WriteLine("Withdraw completed successfully!");
                             }
                             catch (ArgumentOutOfRangeException ax)
                             {
                                 Console.WriteLine($"Ooops! Withdraw failed. Here is why - {ax.Message}");
                             }
-                        }
+                       
                         break;
                     case "4":
                         PrintAllAccounts();
                         break;
                     default:
                         break;
+                    case "5":
+                        PrintAllAccounts();
+                        Console.Write("Select the account number to see all transactions: ");
+                        accountNum2 = Convert.ToInt32(Console.ReadLine());
+                        var transactions = Bank.GetAllTransacationForAccount(accountNum2);
+                        foreach (var transaction in transactions)
+                        {
+                            Console.WriteLine($"Tran Id:{transaction.TransactionId}, Date: {transaction.TransactionDate}, Description: {transaction.Description}, Transaction Type: {transaction.TransactionType}, Amount: {transaction.Amount:C} ");
+                        }
+                        break;
+                    
+                       
                 }
             }
         }

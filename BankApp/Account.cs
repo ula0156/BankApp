@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,16 +14,19 @@ namespace bankApp
         CreditCard,
         Loan
     }
-    class Account
+    public class Account
     {
         private static int lastAccountNumber = 0;
 
         #region Properties
         public string AccountName { get; set; }
-        public decimal AccountNumber { get; private set; }
+        [Key] // telling that this is the primary key for your table. The way to uniqly identify a row in the table. AccounNumber would be a primary key for this situation.
+        public int AccountNumber { get; private set; }
         public string EmailAddress { get; set; }
         public decimal Balance { get; private set; }
         public AccountTypes TypeOfAccount { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; } // word "virtual" is making a relationship, iCollection - meaning many
         #endregion
 
         #region Constructor
