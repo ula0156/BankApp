@@ -43,6 +43,11 @@ namespace bankApp
                         break;
                     case "2":
                         PrintAllAccounts();
+                        //in the bank class we are throwing an exception if the accountNumber was not found 
+                        // it means that we have to use try/catch block here
+
+                        // "try" -  ask try to execute this block of code,
+                        //if something happens I want to go to the "catch" block in order to prevent program from crashing
                         try
                         {
                             Console.Write("Select the account number to do a deposit: ");
@@ -80,8 +85,6 @@ namespace bankApp
                     case "4":
                         PrintAllAccounts();
                         break;
-                    default:
-                        break;
                     case "5":
                         PrintAllAccounts();
                         Console.Write("Select the account number to see all transactions: ");
@@ -89,11 +92,11 @@ namespace bankApp
                         var transactions = Bank.GetAllTransacationForAccount(accountNum2);
                         foreach (var transaction in transactions)
                         {
-                            Console.WriteLine($"Tran Id:{transaction.TransactionId}, Date: {transaction.TransactionDate}, Description: {transaction.Description}, Transaction Type: {transaction.TransactionType}, Amount: {transaction.Amount:C} ");
+                            Console.WriteLine($"Transaction Id: {transaction.TransactionId}, Date: {transaction.TransactionDate}, Description: {transaction.Description}, Transaction Type: {transaction.TransactionType}, Amount: {transaction.Amount:C} ");
                         }
                         break;
-                    
-                       
+                    default:
+                        break;
                 }
             }
         }

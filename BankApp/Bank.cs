@@ -18,7 +18,8 @@ namespace bankApp
             {
                 AccountName = accountName,
                 EmailAddress = emailAddress,
-                TypeOfAccount = typeOfAccount
+                TypeOfAccount = typeOfAccount,
+                CreatedDate = DateTime.Now // Added by Liviu
             };
 
             if (amount > 0)
@@ -38,6 +39,8 @@ namespace bankApp
         public static List<Transaction> GetAllTransacationForAccount(int accountNumber)
         {
             return db.Transactions.Where(t => t.AccountNumber == accountNumber).ToList();
+            // for every row on this table i gonna look for this account number 
+            //then ask to add all the transaction for the matching account into the list
         }
 
         public static Account GetAccountByAccountNumber(int accountNumber)
@@ -47,6 +50,8 @@ namespace bankApp
         }
         public static void Deposit(int accountNumber, decimal amount)
         {
+            // for every row in the database i gonna check if the account has this accounNumber, 
+            //and if it has i ask to give me the first account which matches this account number or if it will not find - give me null;.,
             var account = db.Accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault();
             if (account == null)
             {
@@ -67,7 +72,7 @@ namespace bankApp
         }
         public static void Withdraw(int accountNumber, decimal amount)
         {
-            var account = db.Accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault();
+            var account = db.Accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault(); // look for an account number in the databasekm 
             if (account == null)
             {
                 throw new ArgumentOutOfRangeException("Account is not valid");
@@ -77,7 +82,7 @@ namespace bankApp
             {
                 TransactionDate = DateTime.Now,
                 Description = "Branch withdraw",
-                TransactionType = TransactionType.Credit,
+                TransactionType = TransactionType.Debit,
                 Amount = amount,
                 AccountNumber = accountNumber
             };
