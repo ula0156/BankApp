@@ -19,9 +19,12 @@ namespace bankApp
         private static int lastAccountNumber = 0;
 
         #region Properties
+        [Required]
+        [StringLength(50)]
         public string AccountName { get; set; }
         [Key] // telling that this is the primary key for your table. The way to uniqly identify a row in the table. AccounNumber would be a primary key for this situation.
         public int AccountNumber { get; private set; }
+        [Required]
         public string EmailAddress { get; set; }
         public decimal Balance { get; private set; }
         public AccountTypes TypeOfAccount { get; set; }

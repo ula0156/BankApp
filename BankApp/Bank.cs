@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace bankApp
 {
-    static class Bank
+    public static class Bank
     {
         private static BankModel db = new BankModel(); // because class is static all the members/methods of this class must be static
         public static string Name { get; set; }
@@ -31,9 +32,10 @@ namespace bankApp
             return account;
         }
 
-        public static List<Account> GetAllAccounts()
+        public static List<Account> GetAllAccounts(string emailAddress)
         {
-            return db.Accounts.ToList(); // read database from a table -> convert everything to a list
+            
+            return db.Accounts.Where(a => a.EmailAddress == emailAddress).ToList(); // read database from a table -> convert everything to a list
         }
 
         public static List<Transaction> GetAllTransacationForAccount(int accountNumber)
@@ -68,6 +70,16 @@ namespace bankApp
                 AccountNumber = accountNumber
             };
             db.Transactions.Add(transaction);
+            db.SaveChanges();
+        }
+
+        public static void EditAccount(Account account)
+        {
+            var oldAccount = GetAccountByAccountNumber(account.AccountNumber);
+            db.Entry(oldAccount).State = EntityState.Modified;
+            oldAccount.AccountName = account.AccountName;
+            oldAccount.TypeOfAccount = account.TypeOfAccount;
+            oldAccount.EmailAddress = account.EmailAddress;
             db.SaveChanges();
         }
         public static void Withdraw(int accountNumber, decimal amount)
