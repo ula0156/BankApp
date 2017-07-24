@@ -18,17 +18,18 @@ namespace BankWebUI.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return View(db.Accounts.ToList());
+            var accounts = Bank.GetAllAccounts(HttpContext.User.Identity.Name);
+            return View(accounts);
         }
 
         // GET: Accounts/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id)// id - account number. '?' means that it can be null for data type
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
+            Account account = Bank.GetAccountByAccountNumber(id.Value); 
             if (account == null)
             {
                 return HttpNotFound();
@@ -37,8 +38,13 @@ namespace BankWebUI.Controllers
         }
 
         // GET: Accounts/Create
+        [Authorize]
         public ActionResult Create()
         {
+            var account = new Account
+            {
+                EmailAddress = HttpContext.User.Identity.Name
+            };
             return View();
         }
 
@@ -51,8 +57,7 @@ namespace BankWebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Accounts.Add(account);
-                db.SaveChanges();
+                Bank.CreateAccount(account.AccountName, account.EmailAddress, account.TypeOfAccount, 0.0M);
                 return RedirectToAction("Index");
             }
 
@@ -60,13 +65,13 @@ namespace BankWebUI.Controllers
         }
 
         // GET: Accounts/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id) // get you the page with the edits
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
+            Account account = Bank.GetAccountByAccountNumber(id.Value);
             if (account == null)
             {
                 return HttpNotFound();
@@ -83,8 +88,7 @@ namespace BankWebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(account).State = EntityState.Modified;
-                db.SaveChanges();
+                Bank.EditAccount(account);
                 return RedirectToAction("Index");
             }
             return View(account);
