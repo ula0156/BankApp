@@ -28,7 +28,7 @@ namespace bankApp
         public string EmailAddress { get; set; }
         public decimal Balance { get; private set; }
         public AccountTypes TypeOfAccount { get; set; }
-        public DateTime CreatedDate { get; private set; }
+        public DateTime CreatedDate { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; } // word "virtual" is making a relationship, iCollection - meaning many
         #endregion
 
@@ -37,7 +37,6 @@ namespace bankApp
         {
             lastAccountNumber += 1;
             AccountNumber = lastAccountNumber;
-            CreatedDate = DateTime.Now;
         }
 
         public Account(string accountName) : this()

@@ -22,51 +22,6 @@ namespace BankWebUI.Controllers
             return View(accounts);
         }
 
-        public ActionResult Deposit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var account = Bank.GetAccountByAccountNumber(id.Value);
-            return View(account);
-        }
-        [HttpPost]
-        public ActionResult Deposit(FormCollection controls)
-        {
-            var accountNumber = Convert.ToInt32(controls["AccountNumber"]);
-            var amount = Convert.ToDecimal(controls["Amount"]);
-            Bank.Deposit(accountNumber, amount);
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult Withdraw(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var account = Bank.GetAccountByAccountNumber(id.Value);
-            return View(account);
-        }
-
-        [HttpPost]
-        public ActionResult Withdraw(FormCollection controls)
-        {
-            var accountNumber = Convert.ToInt32(controls["AccountNumber"]);
-            var amount = Convert.ToDecimal(controls["Amount"]);
-            try
-            {
-                Bank.Withdraw(accountNumber, amount);
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return RedirectToAction("Withdraw");
-        }
-
         // GET: Accounts/Details/5
         public ActionResult Details(int? id)// id - account number. '?' means that it can be null for data type
         {
