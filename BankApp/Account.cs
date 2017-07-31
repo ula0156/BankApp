@@ -25,10 +25,11 @@ namespace bankApp
         [Key] // telling that this is the primary key for your table. The way to uniqly identify a row in the table. AccounNumber would be a primary key for this situation.
         public int AccountNumber { get; private set; }
         [Required]
+        [StringLength(50)]
         public string EmailAddress { get; set; }
         public decimal Balance { get; private set; }
         public AccountTypes TypeOfAccount { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; private set; }
         public virtual ICollection<Transaction> Transactions { get; set; } // word "virtual" is making a relationship, iCollection - meaning many
         #endregion
 
@@ -37,6 +38,7 @@ namespace bankApp
         {
             lastAccountNumber += 1;
             AccountNumber = lastAccountNumber;
+            CreatedDate = DateTime.Now;
         }
 
         public Account(string accountName) : this()

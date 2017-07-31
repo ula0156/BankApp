@@ -19,8 +19,7 @@ namespace bankApp
             {
                 AccountName = accountName,
                 EmailAddress = emailAddress,
-                TypeOfAccount = typeOfAccount,
-                CreatedDate = DateTime.Now // Added by Liviu
+                TypeOfAccount = typeOfAccount
             };
 
             if (amount > 0)

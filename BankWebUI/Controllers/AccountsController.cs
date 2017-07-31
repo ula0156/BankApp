@@ -43,9 +43,11 @@ namespace BankWebUI.Controllers
         {
             var account = new Account
             {
+                // I want the email address will be auto-populated for login user.
+                // Authorize on the top of the method, makes sure that user is logged int.
                 EmailAddress = HttpContext.User.Identity.Name
             };
-            return View();
+            return View(account);
         }
 
         // POST: Accounts/Create
