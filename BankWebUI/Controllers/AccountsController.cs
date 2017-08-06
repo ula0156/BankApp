@@ -66,6 +66,46 @@ namespace BankWebUI.Controllers
             return View(account);
         }
 
+        public ActionResult Deposit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var account = Bank.GetAccountByAccountNumber(id.Value);
+
+            return View(account);
+        }
+
+        [HttpPost]
+        public ActionResult Deposit(FormCollection controls)
+        {
+            var accountNumber = Convert.ToInt32(controls["AccountNumber"]);
+            var amount = Convert.ToDecimal(controls["Amount"]);
+            Bank.Deposit(accountNumber, amount);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Withdraw(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var account = Bank.GetAccountByAccountNumber(id.Value);
+
+            return View(account);
+        }
+
+        [HttpPost]
+        public ActionResult Withdraw(FormCollection controls)
+        {
+            var accountNumber = Convert.ToInt32(controls["AccounNamber"]);
+            var amount = Convert.ToDecimal(controls["Amount"]);
+            Bank.Withdraw(accountNumber, amount);
+            return RedirectToAction("Index");
+        }
+        
         // GET: Accounts/Edit/5
         public ActionResult Edit(int? id) // get you the page with the edits
         {

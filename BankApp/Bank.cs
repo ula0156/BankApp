@@ -49,11 +49,12 @@ namespace bankApp
             //LINQ, inside is the landa expression
             return db.Accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault();
         }
+
         public static void Deposit(int accountNumber, decimal amount)
         {
             // for every row in the database i gonna check if the account has this accounNumber, 
             //and if it has i ask to give me the first account which matches this account number or if it will not find - give me null;.,
-            var account = db.Accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault();
+            var account = GetAccountByAccountNumber(accountNumber);
             if (account == null)
             {
                 throw new ArgumentOutOfRangeException("Account Number is not valid.");
@@ -81,6 +82,7 @@ namespace bankApp
             oldAccount.EmailAddress = account.EmailAddress;
             db.SaveChanges();
         }
+
         public static void Withdraw(int accountNumber, decimal amount)
         {
             var account = db.Accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault(); // look for an account number in the databasekm 
@@ -88,6 +90,7 @@ namespace bankApp
             {
                 throw new ArgumentOutOfRangeException("Account is not valid");
             }
+
             account.Withdraw(amount);
             var transacton = new Transaction
             {
@@ -99,7 +102,6 @@ namespace bankApp
             };
             db.Transactions.Add(transacton);
             db.SaveChanges();
-
         }
 
     }
