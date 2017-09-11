@@ -3,10 +3,10 @@
 -----
 This project implements an online banking website where customers can create accounts, deposit and withdraw funds. 
 Following features are available:
-	- Customer registration
-	- Create an account (saving, checking, loan)
-	- See all transactions
-	- Deposit and withdraw funds
+- Customer registration
+- Create an account (saving, checking, loan)
+- See all transactions
+- Deposit and withdraw funds	
 	
 **2. Tools and technologies used**:
 -----
