@@ -3,7 +3,7 @@
 -----
 This project implements an online banking website where customers can create accounts, deposit and withdraw funds. 
 Following features are available:
-     -   Customer registration
+	- Customer registration
 	- Create an account (saving, checking, loan)
 	- See all transactions
 	- Deposit and withdraw funds
@@ -18,7 +18,6 @@ Following features are available:
 		- Microsoft SQL Server
 		- Entity Framework 6
 	- Azure Web Apps
-	
 	
 **3. Architecture**
 ----- 
