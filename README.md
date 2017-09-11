@@ -47,14 +47,9 @@ The web project contains the HTTP specific code: models, views and controllers.
 	- Transactions, display list of transactions for a specific account.
 - Controllers:
 	- Accounts controller. 
-	- Transactions controller
-
-
-
-	- Accounts view, displays list of user's accounts.  
-	- Transactions, display list of transactions for a specific account.
+	- Transactions controller.
 - Controllers:
 	- Accounts controller. 
-	- Transactions controller
+	- Transactions controller.
 
 
