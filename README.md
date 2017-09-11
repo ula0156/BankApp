@@ -48,8 +48,5 @@ The web project contains the HTTP specific code: models, views and controllers.
 - Controllers:
 	- Accounts controller. 
 	- Transactions controller.
-- Controllers:
-	- Accounts controller. 
-	- Transactions controller.
 
 
